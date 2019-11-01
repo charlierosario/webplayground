@@ -1,0 +1,28 @@
+
+   <div class="col-md-1" style="text-align: right;"><strong>Código</strong></div>
+    <div class="col-md-4">{{page.codigo}}</div>
+
+       <div class="col-md-1" style="text-align: right;"><strong>Código</strong></div>
+    <div class="col-md-4">{{page.fechacurso |date:"d/m/Y"}}</div>
+
+    {% if request.user.is_staff %}
+                | <a href="{% url 'pages:update' page.id %}">Editar</a>
+                | <a href="{% url 'pages:delete' page.id %}">Borrar</a>
+              {% endif %}
+
+                 {% if request.user.is_authenticated %}
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'logout' %}">Salir (ADMIN Ingresado)</a>
+              </li>
+              {% endif %}
+
+
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("El email ya está registrado, prueba con otro.")
+        return email
+
+
+
+

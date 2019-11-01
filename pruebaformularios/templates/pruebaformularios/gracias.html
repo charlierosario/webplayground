@@ -1,0 +1,29 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Inscripción{% endblock %}
+{% block background %}{% load static %}{% static 'core/img/contact-bg.jpg' %}{% endblock %}
+{% block content %}
+<head>
+<title>Redirigir al navegador a otra URL</title>
+<META HTTP-EQUIV="REFRESH" CONTENT="10;URL={% url 'home' %}">
+</head>
+<left>
+<br>
+<center><STRONG><UNDERLINE><h3 style="text-shadow: 2px 1px 1px gray;color:#f0f0f0;">FORMULARIO DE INSCRIPCION</h3></UNDERLINE></STRONG></center>
+<main role="main"  style="background-color:#333333;">
+    <div class="container" style="width:60%;background-color:#ababab;box-shadow: 0 0 10px 5px grey;">
+
+         <div class="row mt-2">
+                <div class="col-xl-12 col-lg-12 mt-6">
+                  <div class="bg-faded rounded p-3">
+                      <center><h2 style="text-shadow: 2px 1px 1px gray;color:#f0f0f0;color:white;">Gracias se ha inscripto correctamente,<br> recuerde solo le resta abonar el arancel</h2></center>
+
+                  </div>
+                </div>
+         </div>
+    </div>
+</main>
+    </left>
+
+{% endblock %}

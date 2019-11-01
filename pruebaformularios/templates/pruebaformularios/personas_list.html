@@ -1,0 +1,137 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Reporte Suscriptores{% endblock %}
+{% block background %}{% load static %}{% static 'core/img/contact-bg.jpg' %}{% endblock %}
+{% block content %}
+
+<body>
+<br>
+<center><STRONG><UNDERLINE><h3 style="text-shadow: 2px 1px 1px gray;color:#f0f0f0";>REPORTE SUSCRIPTORES</h3></UNDERLINE></STRONG></center>
+<main role="main"  style="background-color:#333333;">
+    <div class="container mb-4" style="background-color:#c8c8c8;box-shadow: 0 0 10px 5px grey;">
+
+		<div class="row mt-4">
+
+	<div class="col-md-4 mt-4 mx-4">
+		<form method="GET" action="">
+
+			{{ filter.form|crispy }}
+
+			<button type="submit" class="btn btn-m btn-primary">Filtrar</button>&nbsp;&nbsp;<button  class="btn btn-m btn-primary" onclick="javascript:fnExcelReport()">Exportar a Excel</button>
+		</form>
+	</div>
+		</div>
+
+ <div class="row">
+
+<div class="col-md-12 mx-auto">
+            <br>
+
+
+
+
+<br>
+    <div id="customers" class="table-responsive">
+		<iframe id="txtArea1" style="display:none"></iframe>
+  <table id="headerTable" class="table table-hover table-bordered" style="font-size: 13px;">
+
+		<tr class="bg-primary" >
+			<th  height="4px" scope="col"><center>Curso</center></th>
+			<th  scope="col"><center>Nombre</center></th>
+			<th  scope="col"><center>Apellido</center></th>
+			<th  scope="col"><center>Dni</center></th>
+			<th  scope="col"><center>Telefono</center></td>
+			<th  scope="col"><center>Email</center></th>
+			<th  scope="col"><center>Proc</center></th>
+		</tr>
+
+	<tbody>
+		{% if object_list %}
+		{% for persona in filter.qs %}
+
+		<tr >
+			<td  width="auto"><center>{{ persona.codigocurso|upper }}</center></td>
+			<td width="auto"><center>{{ persona.nombre|upper }}</center></td>
+			<td width="auto"><center>{{ persona.apellidos|upper }}</center></td>
+			<td width="auto"><center>{{ persona.dni }}</center></td>
+			<td width="auto"><center>{{ persona.telefono }}</center></td>
+            <td width="auto"><center>{{ persona.email }}</center></td>
+			<td width="auto"><center>{{ persona.procurador|upper }}</center></td>
+
+		</tr>
+
+
+
+		{% endfor %}
+		{% else %}
+		<h3>Todavía no hay suscriptores</h3>
+		{% endif %}
+	</tbody>
+
+</table>
+
+    </div>
+
+    <table class="table">
+	<thead>
+		<tr>
+			<td>
+                {% if page_obj.has_previous %}
+       	         <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+		        {% endif %}
+            </td>
+			<td>
+               		{% if page_obj.has_next %}
+     	             <a href="?page={{ page_obj.next_page_number }}">Next</a>
+    	            {% endif %}
+            </td>
+        </tr>
+    </thead>
+    </table>
+</center>
+<br>
+        </div>
+      </div>
+    </div>
+
+</main>
+{% endblock %}
+</body>
+{% block extra_js %}
+<script>
+	function fnExcelReport()
+	{
+    var tab_text="<table border='1px'><tr bgcolor='#87AFC6'>";
+    var textRange; var j=0;
+    tab = document.getElementById('headerTable'); // id of table
+
+    for(j = 0 ; j < tab.rows.length ; j++)
+    {
+        tab_text=tab_text+tab.rows[j].innerHTML+"</tr>";
+        //tab_text=tab_text+"</tr>";
+    }
+
+    tab_text=tab_text+"</table>";
+    tab_text= tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+    tab_text= tab_text.replace(/<img[^>]*>/gi,""); // remove if u want images in your table
+    tab_text= tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+
+    var ua = window.navigator.userAgent;
+    var msie = ua.indexOf("MSIE ");
+
+    if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+    {
+        txtArea1.document.open("txt/html","replace");
+        txtArea1.document.write(tab_text);
+        txtArea1.document.close();
+        txtArea1.focus();
+        sa=txtArea1.document.execCommand("SaveAs",true,"Say Thanks to Sumit.xls");
+    }
+    else                 //other browser not tested on IE 11
+        sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
+
+    return (sa);
+	}
+	</script>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Inscripción{% endblock %}
+{% block background %}{% load static %}{% static 'core/img/contact-bg.jpg' %}{% endblock %}
+{% block content %}
+
+<br>
+<center><STRONG><UNDERLINE><h3 style="text-shadow: 2px 1px 1px gray;color:#f0f0f0";>FORMULARIO DE INSCRIPCION</h3></UNDERLINE></STRONG></center>
+<main role="main"  style="background-color:#333333;">
+    <div class="container mb-4" style="background-color:#ececec;box-shadow: 0 0 10px 5px grey;">
+
+
+      <div class="row">
+
+        <div class="col-md-9 mx-auto">
+            <br>
+<center>
+   <h2>Personas</h2>
+<em>Persona - DNI</em>
+<ul>
+    {% for persona in object_list %}
+      <li>{{ persona.nombre }} - {{ persona.dni }} </li>
+    {% endfor %}
+  </ul>
+</center>
+<br>
+        </div>
+      </div>
+    </div>
+
+</main>
+{% endblock %}
