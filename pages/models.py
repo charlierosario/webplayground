@@ -12,7 +12,6 @@ class Page(models.Model):
     fechacurso = models.DateField(verbose_name="Fecha")
     horacurso = models.CharField(verbose_name="Horario", max_length=200,)
     content = RichTextField(verbose_name="Organizan")
-    temariocurso = RichTextField(verbose_name="Temario")
     disertantescurso = RichTextField(verbose_name="Disertantes")
     arancelcurso= models.DecimalField(verbose_name="Arancel $", max_digits=6, decimal_places=2, help_text="Solo 2 decimales si corresponde y usar la coma no el punto")
     localizacioncurso= models.CharField(verbose_name="Localizacion (Coordenadas)", max_length=400, help_text=msj)
