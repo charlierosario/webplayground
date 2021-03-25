@@ -13,7 +13,7 @@ olefile==0.46
 openpyxl==2.6.0
 Pillow==6.0.0
 pytz==2019.1
-PyYAML==5.1.2
+PyYAML==5.4
 reportlab==3.5.31
 sqlparse==0.3.0
 ua-parser==0.8.0
